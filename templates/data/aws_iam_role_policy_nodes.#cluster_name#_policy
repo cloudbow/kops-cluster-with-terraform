@@ -1,0 +1,62 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "kopsK8sEC2NodePerms",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeInstances",
+        "ec2:DescribeRegions"
+      ],
+      "Resource": [
+        "*"
+      ]
+    },
+    {
+      "Sid": "kopsK8sS3GetListBucket",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetBucketLocation",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::k8s-state-#cluster_name_hyphenated#"
+      ]
+    },
+    {
+      "Sid": "kopsK8sS3NodeBucketSelectiveGet",
+      "Effect": "Allow",
+      "Action": [
+        "s3:Get*"
+      ],
+      "Resource": [
+        "arn:aws:s3:::k8s-state-#cluster_name_hyphenated#/#cluster_name#/addons/*",
+        "arn:aws:s3:::k8s-state-#cluster_name_hyphenated#/#cluster_name#/cluster.spec",
+        "arn:aws:s3:::k8s-state-#cluster_name_hyphenated#/#cluster_name#/config",
+        "arn:aws:s3:::k8s-state-#cluster_name_hyphenated#/#cluster_name#/instancegroup/*",
+        "arn:aws:s3:::k8s-state-#cluster_name_hyphenated#/#cluster_name#/pki/issued/*",
+        "arn:aws:s3:::k8s-state-#cluster_name_hyphenated#/#cluster_name#/pki/private/kube-proxy/*",
+        "arn:aws:s3:::k8s-state-#cluster_name_hyphenated#/#cluster_name#/pki/private/kubelet/*",
+        "arn:aws:s3:::k8s-state-#cluster_name_hyphenated#/#cluster_name#/pki/ssh/*",
+        "arn:aws:s3:::k8s-state-#cluster_name_hyphenated#/#cluster_name#/secrets/dockerconfig",
+        "arn:aws:s3:::k8s-state-#cluster_name_hyphenated#/#cluster_name#/docker-state/*"
+      ]
+    },
+    {
+      "Sid": "kopsK8sECR",
+      "Effect": "Allow",
+      "Action": [
+        "ecr:GetAuthorizationToken",
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:GetRepositoryPolicy",
+        "ecr:DescribeRepositories",
+        "ecr:ListImages",
+        "ecr:BatchGetImage"
+      ],
+      "Resource": [
+        "*"
+      ]
+    }
+  ]
+}
